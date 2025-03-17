@@ -3,63 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        .container {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            width: 80%;
-        }
-    </style>
+    <title>Music Player</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Age Calculator</h2>
-        <label for="dob">Enter Your Date of Birth:</label><br>
-        <input type="date" id="dob"><br>
-        <button onclick="calculateAge()">Calculate Age</button>
-        <h3 id="result"></h3>
+    <div class="music-player">
+        <h2>My Music Player</h2>
+        <input type="text" id="search" placeholder="Search music..." onkeyup="searchMusic()">
+        <div id="categories">
+            <button onclick="filterCategory('all')">All</button>
+            <button onclick="filterCategory('rock')">Rock</button>
+            <button onclick="filterCategory('pop')">Pop</button>
+        </div>
+        <ul id="playlist">
+            <li data-category="rock" onclick="playMusic('song1.mp3')">Rock Song 1</li>
+            <li data-category="pop" onclick="playMusic('song2.mp3')">Pop Song 1</li>
+        </ul>
+        <audio id="audio-player" controls>
+            Your browser does not support the audio element.
+        </audio>
+        <button onclick="prevTrack()">Prev</button>
+        <button onclick="nextTrack()">Next</button>
+        <input type="range" id="volume" min="0" max="1" step="0.1" onchange="setVolume(this.value)">
     </div>
-
-    <script>
-        function calculateAge() {
-            let dob = document.getElementById("dob").value;
-            if (!dob) {
-                alert("Please enter your Date of Birth.");
-                return;
-            }
-
-            let birthDate = new Date(dob);
-            let today = new Date();
-
-            let years = today.getFullYear() - birthDate.getFullYear();
-            let months = today.getMonth() - birthDate.getMonth();
-            let days = today.getDate() - birthDate.getDate();
-
-            if (days < 0) {
-                months -= 1;
-                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-            }
-            if (months < 0) {
-                years -= 1;
-                months += 12;
-            }
-
-            document.getElementById("result").innerText = 
-                `You are ${years} years, ${months} months, and ${days} days old.`;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
